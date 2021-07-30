@@ -1,0 +1,474 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+  <a class="navbar-brand" href="#">Magenic Masters Angular - Directives Demo</a>
+</nav>
+
+<main role="main" class="container mt-1">
+  <div class="row">
+    <h1>Attribute Directives</h1>
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgModel
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Full Name</label>
+              <input
+                type="text"
+                [(ngModel)]="fullName"
+                name="fullName"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <!-- <div class="form-group form-check-inline">
+              <input
+                type="checkbox"
+                name="canSave"
+                (change)="updateStyles()"
+                [(ngModel)]="canSave"
+                class="form-check-input"
+                id="exampleCheck1"
+              />
+              <label class="form-check-label" for="exampleCheck1"
+                >Can Save</label
+              >
+            </div> -->
+            <div class="form-group form-check-inline">
+              <app-can-save [(canSave)]="canSave" (change)="updateStyles()"></app-can-save>
+              <!-- <app-can-save [canSave]="canSave" (canSaveChange)="canSave=$event" (change)="updateStyles()"></app-can-save> -->
+            </div>
+            <div class="form-group form-check-inline">
+              <input
+                type="checkbox"
+                name="isUnchanged"
+                [(ngModel)]="isUnchanged"
+                class="form-check-input"
+                id="exampleCheck2"
+              />
+              <label class="form-check-label" for="exampleCheck2"
+                >Unchanged</label
+              >
+            </div>
+            <div class="form-group form-check-inline">
+              <input
+                type="checkbox"
+                name="isSpecial"
+                [(ngModel)]="isSpecial"
+                class="form-check-input"
+                id="exampleCheck3"
+              />
+              <label class="form-check-label" for="exampleCheck3"
+                >Special</label
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgStyle
+          <!-- There is a direct [style] binding which is now more preferred than using NgStyle -->
+        </div>
+        <div class="card-body">
+          <!-- Use NgStyle to set many inline styles simultaneously and dynamically, based on the state of the component. -->
+          <p [ngStyle]="{ color: 'red', 'font-size': 'x-large' }">
+            {{ fullName }}
+          </p>
+          <p [style]="currentStyles">{{ fullName }}</p>
+          <p
+            [style]="{
+              'font-style': canSave ? 'italic' : 'normal',
+              'font-weight': !isUnchanged ? 'bold' : 'normal',
+              'font-size': isSpecial ? '40px' : '12px'
+            }"
+          >
+            {{ fullName }}
+          </p>
+          <p [style]="{ color: isRoyalty ? 'yellow' : 'black' }">
+            {{ fullName }}
+          </p>
+
+          <!-- https://angular.io/guide/template-syntax#style-binding -->
+          <!-- The NgStyle directive can be used as an alternative to direct [style] bindings. However, using the above style binding syntax without NgStyle is preferred because due to improvements in style binding in Angular, NgStyle no 
+            longer provides significant value, and might eventually be removed in the future. -->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgClass
+          <!-- There is a direct [class] binding which is now more preferred than using ngClass -->
+          <div class="form-group form-check-inline">
+            <input
+              type="checkbox"
+              name="isRedacted"
+              [(ngModel)]="isRedacted"
+              class="form-check-input"
+              id="exampleCheck4"
+            />
+            <label class="form-check-label" for="exampleCheck4">Redact</label>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="h2" [class]="hasBeenRedacted()">
+            <span
+              ><span>Panama Papers</span> and the dilemma of global financial
+              transparency</span
+            >
+          </p>
+          <p class="lead" [class]="isRedacted ? 'redacted' : ''">
+            <span
+              >Syed Haider Ali Zaidi1；Xin-Yu Wang1；Sardar Ahmad1; Tan-Xue
+              Ping1; Meng-Qi2 School of Management,
+            </span>
+            <span
+              >China University of Mining & Technology, Xuzhou, Jiangsu, 221116,
+              China School of Management,
+            </span>
+            <span>
+              Guangdong University of Petrochemical Technology, Maoming,
+              Guangdong, 525000, China</span
+            >
+          </p>
+          <p [class]="isRedacted ? 'redacted' : ''">
+            Abstract: The <span>Panama Papers</span>, or as they are commonly
+            called the <span>Panama Leaks</span>, are around
+            <span>12 million documents</span> that contain vastly discrete
+            financial and attorney–client information, dating back to
+            <span>early 1970s, of about 215,000 offshore corporations</span>
+            created by <span>Mossack Fonseca</span>, a Panama-based corporate
+            law firm, for their various clients worldwide. The said documents
+            were leaked by an
+            <span>unidentified source (John Doe) from inside the firm</span> and
+            are believed to contain incisive personal information regarding
+            clandestine financial activities of several current and former
+            head-of-states, wealthy aristocrats and high ranking officials of
+            various governments which until now was unknown to the general
+            public. The anonymous source inside
+            <span>Mossack Fonseca</span> (John Doe) responsible for this
+            information disclosure provided these documents to
+            <span>Bastian Obermayer</span>, a
+            <span>German journalist</span> working for
+            <span>Süddeutsche Zeitung</span> (SZ). In a statement issued on
+            <span>May 6, 2015</span>, he cited severe dangers to his life in
+            wake of these startling revelations since they exposed corrupt
+            activities of world’s most powerful people who could cross any limit
+            to safeguard their vested interests. Additionally, he said that it
+            was global income inequality and massive injustice portrayed in
+            these documents which forced him to affect this iniquitous leak. He
+            offered full support to the investigators/prosecutors subject to
+            provision of immunity. After SZ confirmed that the said statement
+            was indeed issued by the <span>Panama Papers</span> source; ICIJ put
+            the complete document on its web portal. Owing to their resource
+            inadequacy, to analyze this massive volume of information, SZ sought
+            the
+            <span
+              >help of International Consortium of Investigative Journalists
+              (ICIJ)</span
+            >
+            which comprising of journalists belonging from over 100 media
+            organizations based in <span>80 countries</span> worldwide who were
+            tasked with investigating/analyzing the documents pertaining to the
+            operations of <span>Mossack Fonseca</span>. On
+            <span>April 3, 2016,</span> after investigation and analysis
+            spanning over one year, the first news stories along with
+            <span>150 original documents</span> were published. While
+            establishment of offshore companies is perfectly legal and
+            permissible, investigations revealed that majority of offshore
+            corporations created by <span>Mossack Fonseca</span> facilitated
+            illegal activities e.g. financial fraud, money laundering, tax
+            evasion and evasion of international embargos. As far as field of
+            investigative journalism is concerned, this project symbolizes a
+            significant landmark in the use of mobile collaboration and data
+            journalism software tools.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h1>Structural Directives</h1>
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgIf
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Select Type</label>
+              <select
+                [(ngModel)]="alertType"
+                name="alertType"
+                class="form-control"
+                id="exampleFormControlSelect2"
+              >
+                <option value="danger">danger</option>
+                <option value="secondary">secondary </option>
+                <option value="success">success</option>
+                <option value="primary">primary</option>
+                <option value="warning">warning</option>
+                <option value="info">info</option>
+                <option value="else">else</option>
+              </select>
+            </div>
+          </form>
+          <div
+            *ngIf="alertType === 'primary'"
+            class="alert alert-primary"
+            role="alert"
+          >
+            {{ fullName }}
+          </div>
+          <div
+            *ngIf="alertType === 'secondary'"
+            class="alert alert-secondary"
+            role="alert"
+          >
+            {{ fullName }}
+          </div>
+          <div
+            *ngIf="alertType === 'success'"
+            class="alert alert-success"
+            role="alert"
+          >
+            {{ fullName }}
+          </div>
+          <div
+            *ngIf="alertType === 'danger'"
+            class="alert alert-danger"
+            role="alert"
+          >
+            {{ fullName }}
+          </div>
+          <div
+            *ngIf="alertType === 'warning'"
+            class="alert alert-warning"
+            role="alert"
+          >
+            A simple warning alert—check it out!
+          </div>
+          <div
+            *ngIf="alertType === 'info'"
+            class="alert alert-info"
+            role="alert"
+          >
+            {{ fullName }}
+          </div>
+
+          <hr class="mt-2 mb-3" />
+          <form>
+            <div class="form-group form-check-inline">
+              <input
+                type="checkbox"
+                name="toggleIfElse"
+                [(ngModel)]="toggleIfElse"
+                class="form-check-input"
+                id="toggleIfElse"
+              />
+              <label class="form-check-label" for="toggleIfElse"
+                >Toggle If Else</label
+              >
+            </div>
+          </form>
+
+          <!-- <div *ngIf="toggleIfElse; else ElseBlock1" class="alert alert-info" role="alert">
+            IF BLOCK
+          </div> -->
+
+          <ng-container *ngIf="toggleIfElse; then showIfBlock1; else ElseBlock1">
+          </ng-container>
+
+          <ng-template #showIfBlock1>
+            <div class="alert alert-info" role="alert">
+              IF BLOCK
+            </div>
+          </ng-template>
+
+          <ng-template #ElseBlock1>
+            <div class="alert alert-dark" role="alert">
+              ELSE BLOCK
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgFor
+        </div>
+        <div class="card-body">
+          <h2>My Heroes</h2>
+          <ul class="heroes">
+            <li *ngFor="let hero of heroes; let i = index">
+              <span class="badge">{{ i }} - {{ hero.id }}</span> {{ hero.name }}
+            </li>
+          </ul>
+          <hr class="mt-2 mb-3" />
+          <p>TrackBy</p>
+          <ul class="heroes">
+            <li
+              *ngFor="let hero of heroes; let i = index; trackBy: trackByHeroID"
+            >
+              <span class="badge">{{ i }} - {{ hero.id }}</span> {{ hero.name }}
+            </li>
+          </ul>
+          <hr class="mt-2 mb-3" />
+          <button 
+            (click)="resetHeroList()"
+            type="button"
+            class="btn btn-secondary"
+          >
+            Reset
+          </button>
+          <button
+            (click)="updateHeroList()"
+            type="button"
+            class="btn btn-primary"
+          >
+            Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          NgSwitch
+        </div>
+        <div class="card-body">
+          <p>Welcome to Earth, Astronaut</p>
+
+          <div [ngSwitch]="astro1.country">
+            <div *ngSwitchCase="'USA'" class="alert alert-primary" role="alert">
+              Howdy, {{ astro1.name }} - {{ astro1.country }}
+            </div>
+            <div
+              *ngSwitchCase="'RUSSIA'"
+              class="alert alert-danger"
+              role="alert"
+            >
+              Greetings Comrade, {{ astro1.name }} - {{ astro1.country }}
+            </div>
+            <div
+              *ngSwitchCase="'CHINA'"
+              class="alert alert-warning"
+              role="alert"
+            >
+              Nihao, {{ astro1.name }} - {{ astro1.country }}
+            </div>
+            <div *ngSwitchCase="'UK'" class="alert alert-info" role="alert">
+              Hello, {{ astro1.name }} - {{ astro1.country }}
+            </div>
+            <div *ngSwitchDefault class="alert alert-dark" role="alert">
+              We come in peace, {{ astro1.name }} - {{ astro1.country }}
+            </div>
+          </div>
+
+          <p>Astronaut List</p>
+          <ul *ngFor="let astro of astroList" [ngSwitch]="astro.country">
+            <div *ngSwitchCase="'USA'" class="alert alert-primary" role="alert">
+              Howdy, {{ astro.name }} - {{ astro.country }}
+            </div>
+            <div
+              *ngSwitchCase="'RUSSIA'"
+              class="alert alert-danger"
+              role="alert"
+            >
+              Greetings Comrade, {{ astro.name }} - {{ astro.country }}
+            </div>
+            <div
+              *ngSwitchCase="'CHINA'"
+              class="alert alert-warning"
+              role="alert"
+            >
+              Nihao, {{ astro.name }} - {{ astro.country }}
+            </div>
+            <div *ngSwitchCase="'UK'" class="alert alert-info" role="alert">
+              Hello, {{ astro.name }} - {{ astro.country }}
+            </div>
+            <div *ngSwitchDefault class="alert alert-dark" role="alert">
+              We come in peace, {{ astro.name }} - {{ astro.country }}
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          Ng-Container And Ng-Template
+        </div>
+        <div class="card-body">
+          <ul>
+            <div class="alert alert-danger custom-text-color" role="alert">
+              <div>
+                <span>This text changes color</span><br/>
+              </div>              
+              <span>This text changes color 1</span><br/>
+              <span>This text changes color 2</span><br/>
+              <span>This text changes color 3</span><br/>
+              <span>This text changes color 4</span><br/>
+            </div>     
+          </ul>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-12 mt-3">
+      <div class="card">
+        <div class="card-header">
+          Ng-Container And Ng-Template
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="alert alert-danger custom-text-color" role="alert">
+              <div>
+                <span>This text should use default color</span><br/>
+              </div>                
+              <!-- <span>This text changes color</span><br/>
+              <span>This text changes color</span><br/>
+              <span>This text changes color</span><br/>
+              <span>This text changes color</span><br/> -->
+              <!-- <div *ngFor="let sampleText of sampleTexts">
+                <span>{{sampleText.text}}</span><br/>            
+              </div> -->
+              <ng-container *ngFor="let sampleText of sampleTexts">
+                <ng-container *ngIf="sampleText.text === 'This text changes color 1'">
+                  <span>{{sampleText.text}}</span><br/>
+                </ng-container>                
+              </ng-container>
+              <!-- <ng-template ngFor let-sampleText [ngForOf]="sampleTexts">
+                <span>{{sampleText.text}}</span><br/>
+              </ng-template> -->
+            </div>     
+          </div>
+          <div>
+            Div
+            <div>division</div>
+            Ng-container <br/>
+            <ng-container>container</ng-container> <br/>
+            Ng-template <br/>
+            <!-- If you want to render this, at [ngIf] directive -->
+            <ng-template>template</ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</main>
+<!-- /.container -->
